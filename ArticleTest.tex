@@ -1,0 +1,212 @@
+\documentclass{article}
+
+\author{Andy Clifton}
+\title{So you want to replace your WYSIWYG word processor with LaTeX, but 508 compliance has you stumped?}
+% -------------------------------------------------------------
+% Create Options
+% -------------------------------------------------------------
+% PDF properties
+\pdfinterwordspaceon
+\pdfminorversion=8
+
+\RequirePackage{xifthen}
+
+% do we have chapters?
+\newboolean{HasChapters}
+\setboolean{HasChapters}{false}
+
+% -------------------------------------------------------------
+% Package Loading
+% -------------------------------------------------------------
+% NAG: check for outdated packages
+\RequirePackage[2tabu, orthodox]{nag}
+
+% GEOMETRY: set page size
+\RequirePackage[head=0.125in,top=1.5in,bottom=1in,inner=1in,outer=1in]{geometry}
+
+% MATHPTMX Times for roman text and math (family ptm)
+\RequirePackage{mathptmx}
+
+% Helvetica for sans serif (family phv)
+\RequirePackage{helvet}
+
+% Courier for typewriter font (family pcr)
+\RequirePackage{courier}
+
+% ams math
+\RequirePackage{amsfonts,amssymb,amsmath}
+
+% gensymb. Required for degrees symbol
+\RequirePackage{gensymb}
+
+% better tables
+\RequirePackage{booktabs}
+
+% graphics
+% can set the option 'final' to override 'draft' status
+\RequirePackage{graphicx}
+
+% For formatting the bibliography
+\RequirePackage[sort]{natbib}
+
+% use fonts of type T1
+\RequirePackage[T1]{fontenc}
+
+% colours
+\RequirePackage{color}
+\RequirePackage{xcolor}
+\definecolor{prettyblue}{RGB}{0, 121, 193}
+
+% set languages
+\RequirePackage[english]{babel}
+    \addto{\captionsenglish}{\renewcommand{\bibname}{References}}
+    \addto\captionsenglish{\renewcommand{\contentsname}{Table of Contents}}
+
+% enable subfigures
+\RequirePackage{subfigure}
+
+% To stop hyphenation in titles etc
+\RequirePackage{hyphenat}
+
+% spacing
+\RequirePackage{setspace}
+\RequirePackage{parskip}
+
+% to-do notes
+\RequirePackage{todonotes}
+
+% code listings
+\RequirePackage{listings}
+
+\RequirePackage[newcommands,document]{ragged2e}
+
+%This changes parindent to 0
+\setlength{\RaggedRightRightskip}{0pt plus 3em}
+
+
+% Add .pdf links
+\RequirePackage[unicode, pdfa, final, linktocpage, colorlinks, linktoc=all, linkcolor=blue, citecolor=blue, menucolor=blue, urlcolor=blue, pdfborder={0 0 0},unicode]{hyperref}
+
+\RequirePackage{cmap}
+
+%Enable tooltips
+\RequirePackage[linewidth = 1]{pdfcomment}
+
+% Format Captions
+\RequirePackage[format=plain,
+	labelformat=simple,
+	font={small,sf,bf},
+	labelfont={small,sf,bf},
+	textfont={small,sf,bf},
+	indention=0cm,
+	labelsep=period,
+	justification=centering,
+	singlelinecheck=true,
+	tableposition=top,
+	figureposition=bottom]{caption}
+	
+	% Create some figure and table caption styles that are narrower than textwidth. These look better with small floats.
+\DeclareCaptionStyle{narrow}{width=4.5in,
+							labelsep=period,
+							font={sf,normalsize},
+							labelfont=bf,
+							format=plain}
+
+% Indenting and spacing between paragraphs
+\setlength{\parindent}{0pt}
+
+% improved table of contents and list of figures/tables
+	\RequirePackage[subfigure]{tocloft}
+
+	% remove numbering on bibliography but still allow in TOC
+	\RequirePackage[nottoc, notlot, notlof]{tocbibind}
+
+	% add Figure before # and a period after
+	\renewcommand{\cftfigfont}{\fontfamily{phv} Figure }
+	\renewcommand{\cfttabfont}{\fontfamily{phv} Table }
+	\renewcommand{\cftfigaftersnum}{.}
+	\renewcommand{\cfttabaftersnum}{.}
+
+	% title font
+	\ifthenelse{\boolean{HasChapters}}{
+		\renewcommand{\cfttoctitlefont}{\color{prettyblue} \raggedright  \Large\sffamily\bfseries}
+		\renewcommand{\cftloftitlefont}{\color{prettyblue} \raggedright  \Large\sffamily\bfseries}
+		\renewcommand{\cftlottitlefont}{\color{prettyblue} \raggedright  \Large\sffamily\bfseries}
+
+	}{ % no chapters (section has a smaller font size)
+		\renewcommand{\cfttoctitlefont}{\color{prettyblue} \raggedright  \fontsize{12}{14}\sffamily\bfseries}
+		\renewcommand{\cftloftitlefont}{\color{prettyblue} \raggedright  \fontsize{12}{14}\sffamily\bfseries}
+		\renewcommand{\cftlottitlefont}{\color{prettyblue} \raggedright  \fontsize{12}{14}\sffamily\bfseries}
+	}
+
+	% add dotfill in toc
+	\ifthenelse{\boolean{HasChapters}}{
+		\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+	}{
+		\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+	}
+
+	% remove indentation
+	\setlength{\cftfigindent}{0pt}
+	\setlength{\cftsubfigindent}{0pt}
+	\setlength{\cfttabindent}{0pt}
+	\setlength{\cftsubtabindent}{0pt}
+
+	% don't add extra spaces in list of figures between chapters
+	\newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
+	\addtocontents{lof}{\protect\noaddvspace}
+	\addtocontents{lot}{\protect\noaddvspace}
+	\setlength{\cftbeforefigskip}{5pt}
+	\setlength{\cftbeforetabskip}{5pt}
+	\setlength{\cftaftertoctitleskip}{\baselineskip}
+	\setlength{\cftafterloftitleskip}{\baselineskip}
+	\setlength{\cftafterlottitleskip}{\baselineskip}
+
+%% ACCESSIBILITY
+%	\RequirePackage[tagged]{accessibilityMeta}
+
+%% THINGS WE NEED TO DO AT THE START OF THE DOCUMENT
+\AtBeginDocument{
+	\makeatletter
+	\hypersetup{
+		pdftitle = {\@title},
+		pdfauthor = {\@author}
+	}
+	\makeatother
+	\maketitle
+	\clearpage	
+}
+
+
+\begin{document}
+  
+\pagenumbering{arabic}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\section{Introduction}
+The de-facto standard for scientific publishing is \LaTeX. \LaTeX\ is often preferred over WYSIWYG word processors for technical documents because of the relatively simple file format that can be shared across users on many different platforms, and the ease of formatting a document for journal publication. In contrast, many organizations have publishing workflows built around WYSIWYG tools, which often include PDF creators. WYSIWYG word processing tools often include the ability to edit a document and track input from co-workers or dedicated editors, which simplifies the review process. Although changes can be compared between \LaTeX documents using command line tools, editors in a corporate environment may lack the training to edit \LaTeX\ source files. So, \LaTeX\ does not fit well in a corporate document preparation workflow unless \LaTeX\ files can be converted into something that can be read by a WYSIWYG editor.
+
+Another issue with using \LaTeX\, is document \emph{accessibility}. Accessibility is important for documents produced by federally-funded organizations: since the US Congress passed the 1998 Section 508 Amendment to the Rehabilitation Act of 1973, it has been a requirement that all federally-funded documents are accessible to people with disabilities. An accessible PDF has several characteristics:
+
+\begin{itemize}
+\item All of the document content has been tagged
+\item It is possible to define a reading order based on those tags
+\item Images and links are given alternate text descriptions
+\item Tables are tagged, so that the table structure can be established
+\item Unicode descriptions of all characters are required
+\end{itemize}
+
+The same approach can be used to create alt text for images. For example, Figure \ref{fig:TestimagesWithAltText} has been labeled with a tool tip. 
+
+\begin{figure*}[htp]
+\centering
+\subfigure[A chick.\label{fig:ChickWithAltText}]{\pdftooltip{\includegraphics[height=2.5in]{Chick1}}{A bright yellow toy model of a chick}}
+~
+\subfigure[Another chick.\label{fig:ChickWithAltText2}]{\pdftooltip{\includegraphics[height=2.5in]{Chick1}}{A second image of a bright yellow toy model of a chick}}
+\caption{Test images}\label{fig:TestimagesWithAltText}
+\end{figure*}
+
+
+\end{document}

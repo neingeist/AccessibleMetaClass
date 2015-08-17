@@ -440,7 +440,7 @@
 
 %% ACCESSIBILITY
 \ifthenelse{\boolean{IsTagged}}{% True
-	\RequirePackage[tagged]{accessibility_meta}
+	\RequirePackage[tagged]{accessibilityMeta}
 	}{ %else
 	% nothing
 }
