@@ -1,6 +1,6 @@
 % File: meta.cls v1.0
 % This class file provides basic functionality for producing
-% PDFs that work with the accessibility" package and LaTeX2rtf%
+% files that work with the accessibility package and LaTeX2rtf%
 
 % -------------------------------------------------------------
 % Identification Part
