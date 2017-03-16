@@ -154,7 +154,10 @@
 
 % code listings
 \RequirePackage{listings}
-  
+
+% etoolbox (for \AfterEndPreamble}
+\RequirePackage{etoolbox}
+
 % --------------
 % Main Code
 % --------------
@@ -453,8 +456,10 @@
 		pdfauthor = {\@author}
 	}
 	\makeatother
+}
+\AfterEndPreamble{
 	\maketitle
-	\clearpage	
+	\clearpage
 }
 
 
