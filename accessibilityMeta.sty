@@ -1947,8 +1947,10 @@
   %Koreanisch %\ifthenelse{\equal{#1}{}{\gdef\LanguageCode{/Lang (KO)}}{}%
   %Niederl?ndisch %\ifthenelse{\equal{#1}{}{\gdef\LanguageCode{/Lang(NL)}}{}%
   \ifthenelse{\equal{\LanguageCode}{}}{%
-      \PackageWarning{accessibility}{Die gew?hlte Sprache (#1) wird vom %
-                             Adobe Acrobat Reader 6.0 nicht unterst?tzt.}%
+      % Comparing \languagename is tricky (see babel documentation for \languagename for details),
+      % so give the user a hint here to use the babel package to fix the error.
+      \PackageWarning{accessibility}{You may need to use the babel package or the chosen language %
+                                     (#1) is not supported by Adobe Acrobat Reader 6.}%
   }{}%
 }
 
