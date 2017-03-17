@@ -54,7 +54,7 @@ The requirements identified in the introduction can be summarized as follows:
 
 \section{A workflow for producing accessible .pdf files}
 The following workflow satisfies the requirements set out in the previous section:
-\begin{itemize}
+\begin{enumerate}
 \item Define a class file that contains the correct formatting, etc, using article, report or book classes. Include the minimum number of up-to-date packages in the class and add the \packagename{nag} package to make sure that all users can see that those packages are not deprecated.
 \item Provide tools to add accessibility support to the \fn{.pdf} file
 \item Create a template showing how to use the class file
@@ -63,9 +63,11 @@ The following workflow satisfies the requirements set out in the previous sectio
 \item Convert the tex files to rtf using LaTeX2rtf, available at http://latex2rtf.sourceforge.net
 \item Get edits and peer reviews done on a cleaned-up .rtf file that has been saved as .doc or .docx
 \item Transfer edits from the .doc or .docx document back in to 'tex manually, and complete the PDF production in LaTeX.
-\end{itemize}
+\end{enumerate}
 
 The rest of this section gives details on each of the above steps.
+
+N.B. Collaborative, web-based tools have recently (March 2017) started to implement corporate templates with will help with item 4 and 5. Some of these tools also include ``track changes'' functionality which can remove the need for steps 6-8.
 
 \subsection{A ``meta'' LaTeX style file}\label{sec:meta.cls}
 A class file called \fn{meta.cls} has been written to implement common formatting requirements in \LaTeX\ across the standard \LaTeX\ article, report, book, and memoir classes. The class file calls a common group of packages (Table \ref{Tab:Packages}) regardless of the chosen class. Slightly different options are chosen for those packages if the document uses the memoir class, or if the document uses chapters or not. The class can be customized to meet specific formatting requirements. 
@@ -82,7 +84,7 @@ Options that have been implemented include:
 \item[memoir]{compile the document using the \LaTeX\ \emph{memoir} class. This option is not recommended because of the challenge with later converting to rtf format.}
 \item[draft]{add a `draft' watermark to all pages and colours all links in blue.}
 \item[10pt, 12pt]{set the font size accordingly. The default is 12 point.}
-\item[letterpaper, a4paper]{set the paper size. the default is letter paper.}
+\item[letterpaper, a4paper]{set the paper size. The default is letter paper.}
 \end{description}
 
 Table \ref{Tab:Packages} lists the packages that are explicitly called by \packagename{meta} in the order they are called in. These packages often call other packages, so this is not an exhaustive list.
@@ -271,17 +273,7 @@ Using an example from Werner posted on tex.stackexchange.com, we default to the 
 \end{verbatim}
 
 \section{Problems with this approach}
-There are a few things that still need to be fixed.
-
-\begin{itemize}
-\item Problems associated with the \packagename{accessibility} package:
-\begin{itemize}
-\item Formatting in section headings such as \verb+\emph{}+ breaks compiling
-\item Empty \fn{.bbl} files also break it
-\item There's an extra line at the start of \envname{lstlisting} environments
-\item The \verb+\alt{}+ macro does not work.
-\end{itemize}
-\end{itemize}
+Well, there are lots. If you find any, please use GitHub's issue tracking to report these. You can find the current list of issues at  \url{https://github.com/AndyClifton/AccessibleMetaClass/issues}.
 
 \section{Conclusions}
 In order to generate accessible \fn{.pdf} files with \LaTeX\ that can also be shared with WYSIWYG word processor users, a \LaTeX\ meta class was created. This meta class uses a well-defined set of packages that limits the scope of the casual 'tex author to fiddle, whilst giving the author the tools to create complex technical documents. Accessible \fn{.pdf} files are compiled directly from the \LaTeX source code, while \fn{.rtf} files are written using the \packagename{latex2rtf} program. This meets the users' need for a single source file and minimal intervention.
