@@ -22,12 +22,10 @@
 \section*{Abstract}
 `What you see is what you get' (WYSIWYG) word processors are frequently used within organizations to produce PDF documents that have a common look and feel. The PDFs are tagged, structured, and pass automated tests for document accessibility. PDFs that are created with \LaTeX\ do not pass such tests, making it difficult to use \LaTeX\ in a corporate environment. This document explains how \LaTeX\ can be used to prepare documents that can be used in a corporate environment. This is achieved by using a file source that can be converted in to an \fn{.rtf} file, which can be read in to a WYSIWYG word processor. The same source can be used to create \fn{.pdf} files that satisfy accessibility requirements. This document is intended to be used as a template as it contains most of the elements of a technical \LaTeX\ document, including complex document structures, lists, equations, figures and code listings.
 
-\clearpage
 \pagenumbering{arabic}
 \tableofcontents
 \listoffigures
 \listoftables
-\clearpage
 
 \section{Introduction}
 The de-facto standard for scientific publishing is \LaTeX. \LaTeX\ is often preferred over WYSIWYG word processors for technical documents because of the relatively simple file format that can be shared across users on many different platforms, and the ease of formatting a document for journal publication. In contrast, many organizations have publishing workflows built around WYSIWYG tools, which often include PDF creators. WYSIWYG word processing tools often include the ability to edit a document and track input from co-workers or dedicated editors, which simplifies the review process. Although changes can be compared between \LaTeX documents using command line tools, editors in a corporate environment may lack the training to edit \LaTeX\ source files. So, \LaTeX\ does not fit well in a corporate document preparation workflow unless \LaTeX\ files can be converted into something that can be read by a WYSIWYG editor.
@@ -109,7 +107,7 @@ natbib & sort &handles citations and allows the \verb+\cite+, \verb+\citep+ and 
 fontenc & T1 & & &\\
 xcolor & & & &\\
 babel & english & & &\\
-subfigure & & provides the \texttt{subfigure} environment to produce sub figures & \checkmark & \\
+subcaption & & provides the \texttt{subfigure} environment to produce sub figures & \checkmark & \\
 hyphenat & & & &\\
 setspace & & & &\\
 parskip & & & &\\
@@ -144,13 +142,21 @@ Alt text can be added after the PDF is compiled using a PDF editor such as Adobe
 
 The same approach can be used to create alt text for images. For example, Figure \ref{fig:TestimagesWithAltText} has been labeled with a tool tip. 
 
-\begin{figure*}[htp]
-\centering
-\subfigure[A chick.\label{fig:ChickWithAltText}]{\pdftooltip{\includegraphics[height=2.5in]{Chick1}}{A bright yellow toy model of a chick}}
-~
-\subfigure[Another chick.\label{fig:ChickWithAltText2}]{\pdftooltip{\includegraphics[height=2.5in]{Chick1}}{A second image of a bright yellow toy model of a chick}}
-\caption{Test images}\label{fig:TestimagesWithAltText}
+\begin{figure*}
+          \begin{subfigure}[b]{.55\linewidth}
+            \centering
+		{\pdftooltip{\includegraphics[height=2.5in]{Chick1}}{A bright yellow toy model of a chick}}
+            \caption{A chick.}\label{fig:ChickWithAltText}
+          \end{subfigure}%
+          \begin{subfigure}[b]{.55\linewidth}
+            \centering
+		{\pdftooltip{\includegraphics[height=2.5in]{Chick1}}{A second image of a bright yellow toy model of a chick}}
+            \caption{Another chick}\label{fig:ChickWithAltText2}
+          \end{subfigure}
+          \caption{Test images}\label{fig:TestimagesWithAltText}
 \end{figure*}
+
+Note that the \texttt{subfig} and \texttt{subfigure} packages are deprecated and so subfigures are implemented using the \texttt{subcaption} package. The \texttt{subcaption} package appears to be the most frequently maintained package at this time, and contains the same functionality as the \texttt{subfig} and \texttt{subfigure} packages.
 
 The \packagename{accessibility} package includes an \verb+\alt{}+ environment which is intended to create a tool tip. Although it has been included in the source of the next equation, it does not currently work.
 \begin{equation}

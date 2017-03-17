@@ -139,9 +139,6 @@
     \addto{\captionsenglish}{\renewcommand{\bibname}{References}}
     \addto\captionsenglish{\renewcommand{\contentsname}{Table of Contents}}
 
-% enable subfigures
-\RequirePackage{subfigure}
-
 % To stop hyphenation in titles etc
 \RequirePackage{hyphenat}
 
@@ -177,7 +174,7 @@
 \ifthenelse{\NOT \boolean{IsMemoir}}{  % not memoir class
 
 	% improved table of contents and list of figures/tables
-	\RequirePackage[subfigure]{tocloft}
+	\RequirePackage{tocloft}
 
 	% remove numbering on bibliography but still allow in TOC
 	\RequirePackage[nottoc, notlot, notlof]{tocbibind}
@@ -209,9 +206,7 @@
 
 	% remove indentation
 	\setlength{\cftfigindent}{0pt}
-	\setlength{\cftsubfigindent}{0pt}
 	\setlength{\cfttabindent}{0pt}
-	\setlength{\cftsubtabindent}{0pt}
 
 	% don't add extra spaces in list of figures between chapters
 	\newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
@@ -350,7 +345,7 @@
 	singlelinecheck=true,
 	tableposition=top,
 	figureposition=bottom]{caption}
-
+\RequirePackage{subcaption}
 
 % number continuously across chapters
 \ifthenelse{\boolean{HasChapters}}{
@@ -459,7 +454,9 @@
 }
 \AfterEndPreamble{
 	\maketitle
+	\ifthenelse{\boolean{IsReport}}{
 	\clearpage
+	}{}
 }
 
 
