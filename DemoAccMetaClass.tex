@@ -231,7 +231,7 @@ The \packagename{listings} package is one of several packages that can be used t
 
 Using an example from Werner posted on tex.stackexchange.com, we default to the \envname{verbatim} environment, and only use \packagename{listings} if we are compiling with \packagename{pdflatex}:
 
-\begin{verbatim}%
+\begin{verbatim}
 \makeatletter
 \@ifundefined{lstlisting}{}{%
   \let\verbatim\relax%
@@ -245,7 +245,7 @@ Using an example from Werner posted on tex.stackexchange.com, we default to the 
 
 \subsection{The final preamble}
 
-\begin{verbatim}%
+\begin{verbatim}
 \newif\iflatextortf
 
 \iflatextortf
