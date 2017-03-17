@@ -96,7 +96,7 @@
 % Package Loading
 % -------------------------------------------------------------
 % NAG: check for outdated packages
-\RequirePackage[2tabu, orthodox]{nag}
+\RequirePackage[l2tabu, orthodox]{nag}
 
 % GEOMETRY: set page size
 \RequirePackage[head=0.125in,top=1.5in,bottom=1in,inner=1in,outer=1in]{geometry}
