@@ -191,7 +191,6 @@
 		\renewcommand{\cfttoctitlefont}{\color{prettyblue} \raggedright  \Large\sffamily\bfseries}
 		\renewcommand{\cftloftitlefont}{\color{prettyblue} \raggedright  \Large\sffamily\bfseries}
 		\renewcommand{\cftlottitlefont}{\color{prettyblue} \raggedright  \Large\sffamily\bfseries}
-
 	}{ % no chapters (section has a smaller font size)
 		\renewcommand{\cfttoctitlefont}{\color{prettyblue} \raggedright  \fontsize{12}{14}\sffamily\bfseries}
 		\renewcommand{\cftloftitlefont}{\color{prettyblue} \raggedright  \fontsize{12}{14}\sffamily\bfseries}
@@ -415,29 +414,31 @@
 	\renewcommand{\printlottitle}[1]{\color{prettyblue} \raggedright  \Large\sffamily\bfseries #1}
 }
 
-% CODE / VERBATIM
-\@ifundefined{lstlisting}{}{%
-  \let\verbatim\relax%
-  \lstnewenvironment{verbatim}{\lstset{language=[LaTeX]TeX,                     % the language of the code
-  basicstyle=\small\sffamily,
-  numbers=left,                   % where to put the line-numbers
-  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
-  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line will be numbered
-  numbersep=5pt,                  % how far the line-numbers are from the code
-  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
-  showspaces=false,               % show spaces adding particular underscores
-  showstringspaces=false,         % underline spaces within strings
-  breaklines=true,                % sets automatic line breaking
-  breakatwhitespace=true,        % sets if automatic breaks should only happen at whitespace
-  keywordstyle=\color{blue},      % keyword style
-  commentstyle=\color{gray},   % comment style
-  stringstyle=\color{green},      % string literal style
-  escapeinside={\%*}{*)},         % if you want to add a comment within your code
-  morekeywords={*,...}}%            % if you want to add more keywords to the set
-}{}%
+% Switching between verbatim and using the lstlistings package if it's loaded. 
+\ifthenelse{\NOT \isundefined{lstlisting}}{%True
+	% define standard lstlisting style
+	\let\verbatim\relax
+	\lstnewenvironment{verbatim}{\lstset{language=[LaTeX]TeX,	% the language of the code
+	basicstyle=\small\sffamily,
+	numbers=left,                   % where to put the line-numbers
+	numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+	stepnumber=1,                   % the step between two line-numbers. If it's 1, each line will be numbered
+	numbersep=5pt,                  % how far the line-numbers are from the code
+	backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+	showspaces=false,               % show spaces adding particular underscores
+	showstringspaces=false,         % underline spaces within strings
+	breaklines=true,                % sets automatic line breaking
+	breakatwhitespace=true,        % sets if automatic breaks should only happen at whitespace
+	keywordstyle=\color{blue},      % keyword style
+	commentstyle=\color{gray},   % comment style
+	stringstyle=\color{green},      % string literal style
+	escapeinside={\%*}{*)},         % if you want to add a comment within your code
+	morekeywords={*,...}}            % if you want to add more keywords to the set
+	\typeout{Default lstlisting style set}
+	}{}
 }
 
-%% ACCESSIBILITY
+% Loading accessibility package
 \ifthenelse{\boolean{IsTagged}}{% True
 	\RequirePackage[tagged]{accessibilityMeta}
 	}{ %else
