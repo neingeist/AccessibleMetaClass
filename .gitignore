@@ -1,3 +1,6 @@
+# Latex files
+*.*.*(busy) 
+*.*(busy) 
 *.acn
 *.acr
 *.alg
@@ -18,18 +21,35 @@
 *.log
 *.lot
 *.maf
-*.mtc
-*.mtc0
+*.mp
+*.mtc*
 *.nav
 *.nlo
 *.out
 *.pdfsync
 *.ps
+*.run.*
 *.snm
-*.synctex.gz
+*.synctex.*
+*.tdo
+*.tmp
 *.toc
+*.top
+*.tui
 *.upa
 *.upb
 *.vrb
 *.xdy
-*.tdo
+ 
+# Mac IDE files
+*.swp
+*~
+*(Autosaved).rtfd/
+Backup[ ]of[ ]*.pages/
+Backup[ ]of[ ]*.key/
+Backup[ ]of[ ]*.numbers/
+ 
+# Mac finder files and hidden folders
+.DS_Store
+
+
