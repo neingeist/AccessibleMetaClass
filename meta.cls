@@ -416,7 +416,7 @@
 
 % Switching between verbatim and using the lstlistings package if it's loaded. 
 \ifthenelse{\NOT \isundefined{lstlisting}}{%True
-	% define standard lstlisting style
+	% define standard lstlisting style and replace all verbatim text with this when we compile with pdflatex
 	\let\verbatim\relax
 	\lstnewenvironment{verbatim}{\lstset{language=[LaTeX]TeX,	% the language of the code
 	basicstyle=\small\sffamily,
