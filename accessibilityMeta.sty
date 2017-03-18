@@ -2096,6 +2096,19 @@ The command name specified by \string\newacronym already exists.}}}
   }{}%
 }{}
 
+
+% The count1to package confuses hyperref (see hyperref README), so fix \theH<...>:
+\@ifpackageloaded{hyperref}{%
+  \AtBeginDocument{%
+    \ifthenelse{\isundefined{\theHchapter}}{\newcommand{\theHchapter}{0}}{}%
+    \renewcommand*{\theHsection}{\theHchapter.\arabic{section}}%
+    \renewcommand*{\theHsubsection}{\theHsection.\arabic{subsection}}%
+    \renewcommand*{\theHsubsubsection}{\theHsubsection.\arabic{subsubsection}}%
+    \renewcommand*{\theHparagraph}{\theHsubsubsection.\arabic{paragraph}}%
+    \renewcommand*{\theHsubparagraph}{\theHparagraph.\arabic{subparagraph}}%
+  }%
+}%
+
 \endinput
 %%
 %% End of file `accessibility.sty'.
